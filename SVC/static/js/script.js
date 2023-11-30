@@ -8,41 +8,43 @@ const inputField = document.getElementById('input-field');
 inputForm.addEventListener('submit', function(event) {
   // Prevent form submission
   event.preventDefault();
-
   // Get user input
   const input = inputField.value;
-
   // Clear input field
   inputField.value = '';
-  const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" });
-
-  // Add user input to conversation
-  let message = document.createElement('div');
-  message.classList.add('chatbot-message', 'user-message');
-  message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${input}</p>`;
-  conversation.appendChild(message);
-
-  // Generate chatbot response
-  const response = generateResponse(input);
-
-  // Add chatbot response to conversation
-  message = document.createElement('div');
-  message.classList.add('chatbot-message','chatbot');
-  message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${response}</p>`;
-  conversation.appendChild(message);
-  message.scrollIntoView({behavior: "smooth"});
+  const response = execute(input);
 });
 
-// Generate chatbot response function
-function generateResponse(input) {
-    // Add chatbot logic here
-    const responses = [
-      "Hello, how can I help you today? 😊"
-    ];
-    
-    // Return a random response
-    return responses[Math.floor(Math.random() * responses.length)];
+
+  function execute(input) {
+      fetch("/ai/answer", {
+        method: "POST",
+        body: JSON.stringify({
+            userCommand: input
+        }),
+      headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+      })
+        .then((response) => {
+            if (!response.ok) {throw new Error(`HTTP error! Status: ${response.status}`);}
+            return response.json();
+          })
+        .then((data) => {updateUI(input, data)})
+        .catch((error) => console.error("Error fetching data:", error));
 }
-  
-  
-    
+
+function updateUI(input, data) {
+  const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: "2-digit" });
+      // Add user input to conversation
+      let message = document.createElement('div');
+      message.classList.add('chatbot-message', 'user-message');
+      message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${input}</p>`;
+      conversation.appendChild(message);
+      // Add AI response to conversation
+      message = document.createElement('div');
+      message.classList.add('chatbot-message','chatbot');
+      message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${data.result}</p>`;
+      conversation.appendChild(message);
+      message.scrollIntoView({behavior: "smooth"});
+}
