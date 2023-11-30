@@ -39,7 +39,7 @@ function updateUI(input, data) {
       // Add user input to conversation
       let message = document.createElement('div');
       message.classList.add('chatbot-message', 'user-message');
-      message.innerHTML = `<p class="chatbot-text" sentTime="${currentTime}">${input}</p>`;
+      message.innerHTML = `<p class="chatbot-input" sentTime="${currentTime}">${input}</p>`;
       conversation.appendChild(message);
       // Add AI response to conversation
       message = document.createElement('div');
