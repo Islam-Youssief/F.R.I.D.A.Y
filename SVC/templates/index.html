@@ -21,10 +21,19 @@
                 </div>
                 <form id="input-form">
                   <message-container>
-                    <input id="input-field" type="text" placeholder="Type your message here">
-                    <button id="submit-button" type="submit">
-                    <img class="send-icon" src="{{url_for('static', filename='images/send-message.png')}}" alt="">
-                    </button>
+                        <input id="input-field" type="text" placeholder="Type your message here">
+                        <div class="tooltip">
+                              <button id="draw-button">
+                                <img class="draw-icon" src="{{url_for('static', filename='images/draw.png')}}" alt="">
+                              </button>
+                              <span class="tooltiptext">Click To Draw Image According To Your Description.</span>
+                        </div>
+                        <div class="tooltip">
+                              <button id="submit-button" type="submit">
+                                <img class="send" src="{{url_for('static', filename='images/send-message.png')}}" alt="">
+                              </button>
+                              <span class="tooltiptext">Click To Get Your Answer.</span>
+                        </div>
                   </message-container>
                 </form>
             </div>  
