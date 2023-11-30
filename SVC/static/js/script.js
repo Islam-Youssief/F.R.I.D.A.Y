@@ -12,7 +12,9 @@ inputForm.addEventListener('submit', function(event) {
   const input = inputField.value;
   // Clear input field
   inputField.value = '';
-  const response = execute(input);
+  // Send user input to server if not empty
+  if (!input) return;
+  execute(input);
 });
 
 
