@@ -7,13 +7,15 @@ import os.path
 from flask import Flask, request
 
 import SVC.api.about as about
-import SVC.api.ai_assistant as ai
+import SVC.api.ai_assistant as assistant
+import SVC.api.ai_drawer as drawer
 import SVC.api.index as index
 
 
 _blueprints = [
     about,
-    ai,
+    assistant,
+    drawer,
     index
 ]
 

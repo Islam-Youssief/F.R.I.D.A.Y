@@ -5,7 +5,7 @@ import flask as fl
 import SVC.controllers.ai_assistant as ai
 
 
-bp = fl.Blueprint('ai', __name__)
+bp = fl.Blueprint('answer', __name__)
 
 
 @bp.route('/answer', methods=['POST'])
